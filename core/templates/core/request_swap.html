@@ -1,0 +1,175 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Request Skill Swap - Skill Swap Platform{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-handshake me-2"></i>Request a Skill Swap
+                </h4>
+                <p class="mb-0 mt-2 opacity-75">Connect with someone to exchange skills</p>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.to_user.id_for_label }}" class="form-label">
+                                <i class="fas fa-user me-1"></i>Select User
+                            </label>
+                            {{ form.to_user }}
+                            {% if form.to_user.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.to_user.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <small class="form-text text-muted">Choose who you want to swap skills with</small>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.skill_offered.id_for_label }}" class="form-label">
+                                <i class="fas fa-gift me-1"></i>Skill You're Offering
+                            </label>
+                            {{ form.skill_offered }}
+                            {% if form.skill_offered.errors %}
+                                <div class="text-danger small mt-1">
+                                    {% for error in form.skill_offered.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <small class="form-text text-muted">What skill will you teach?</small>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="{{ form.skill_requested.id_for_label }}" class="form-label">
+                            <i class="fas fa-hand-holding-heart me-1"></i>Skill You Want to Learn
+                        </label>
+                        {{ form.skill_requested }}
+                        {% if form.skill_requested.errors %}
+                            <div class="text-danger small mt-1">
+                                {% for error in form.skill_requested.errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <small class="form-text text-muted">What skill do you want to learn from them?</small>
+                    </div>
+
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {% for error in form.non_field_errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <div class="bg-light p-3 rounded mb-4">
+                        <h6 class="text-primary mb-2">
+                            <i class="fas fa-info-circle me-1"></i>How It Works
+                        </h6>
+                        <ol class="mb-0 small">
+                            <li>Select a user you'd like to connect with</li>
+                            <li>Choose what skill you'll offer to teach them</li>
+                            <li>Select what skill you'd like to learn from them</li>
+                            <li>Submit your request and wait for their response</li>
+                        </ol>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'browse' %}" class="btn btn-outline-secondary me-md-2">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Browse
+                        </a>
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-paper-plane me-2"></i>Send Request
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Recent Requests Section -->
+        <div class="card mt-4">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-history me-2"></i>My Recent Requests
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-left-warning">
+                            <div class="card-body p-3">
+                                <div class="d-flex align-items-center">
+                                    <div class="me-3">
+                                        <i class="fas fa-clock fa-2x text-warning"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-1">Pending Requests</h6>
+                                        <p class="mb-0 text-muted small">Waiting for response</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-left-success">
+                            <div class="card-body p-3">
+                                <div class="d-flex align-items-center">
+                                    <div class="me-3">
+                                        <i class="fas fa-check-circle fa-2x text-success"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-1">Accepted</h6>
+                                        <p class="mb-0 text-muted small">Ready to start learning!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-left-danger">
+                            <div class="card-body p-3">
+                                <div class="d-flex align-items-center">
+                                    <div class="me-3">
+                                        <i class="fas fa-times-circle fa-2x text-danger"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-1">Declined</h6>
+                                        <p class="mb-0 text-muted small">Try another match</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-muted text-center mt-3">
+                    <i class="fas fa-info-circle me-1"></i>
+                    Your swap requests and their status will appear here
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.border-left-warning {
+    border-left: 4px solid #ffc107 !important;
+}
+
+.border-left-success {
+    border-left: 4px solid #198754 !important;
+}
+
+.border-left-danger {
+    border-left: 4px solid #dc3545 !important;
+}
+</style>
+{% endblock %}

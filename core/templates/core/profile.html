@@ -1,0 +1,83 @@
+{% extends 'core/base.html' %}
+
+{% block title %}My Profile - Skill Swap Platform{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-user me-2"></i>My Profile
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="text-muted">Username</h6>
+                        <p class="lead">{{ user.username }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-muted">Email</h6>
+                        <p class="lead">{{ user.email }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-cogs me-2"></i>My Skills
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if skills %}
+                    <div class="row">
+                        {% for skill in skills %}
+                            <div class="col-md-6 mb-3">
+                                <div class="skill-badge">
+                                    {{ skill.skill.name }} 
+                                    <span class="badge bg-light text-dark ms-2">{{ skill.get_skill_type_display }}</span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-muted">No skills added yet. Add your first skill below!</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-plus me-2"></i>Add New Skill
+                </h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.skill.id_for_label }}" class="form-label">
+                                <i class="fas fa-lightbulb me-1"></i>Skill
+                            </label>
+                            {{ form.skill }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.skill_type.id_for_label }}" class="form-label">
+                                <i class="fas fa-exchange-alt me-1"></i>Type
+                            </label>
+                            {{ form.skill_type }}
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-info">
+                        <i class="fas fa-plus me-2"></i>Add Skill
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

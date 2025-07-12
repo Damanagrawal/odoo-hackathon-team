@@ -1,0 +1,100 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Home - Skill Swap Platform{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto text-center">
+        <div class="hero-section bg-light p-5 rounded mb-5">
+            <h1 class="display-4 text-primary mb-4">
+                <i class="fas fa-exchange-alt me-3"></i>Welcome to Skill Swap
+            </h1>
+            <p class="lead mb-4">
+                Connect with others to exchange skills and knowledge. Learn something new while teaching what you know best!
+            </p>
+            
+            {% if not user.is_authenticated %}
+                <div class="d-grid gap-2 d-md-flex justify-content-center">
+                    <a href="{% url 'register' %}" class="btn btn-primary btn-lg me-md-2">
+                        <i class="fas fa-user-plus me-2"></i>Get Started
+                    </a>
+                    <a href="{% url 'login' %}" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-sign-in-alt me-2"></i>Login
+                    </a>
+                </div>
+            {% else %}
+                <div class="d-grid gap-2 d-md-flex justify-content-center">
+                    <a href="{% url 'profile' %}" class="btn btn-primary btn-lg me-md-2">
+                        <i class="fas fa-user me-2"></i>My Profile
+                    </a>
+                    <a href="{% url 'browse' %}" class="btn btn-success btn-lg">
+                        <i class="fas fa-search me-2"></i>Find Skills
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="row text-center mb-5">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title">Connect</h5>
+                        <p class="card-text">Find people in your community who share your interests and learning goals.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <i class="fas fa-exchange-alt fa-3x text-success mb-3"></i>
+                        <h5 class="card-title">Exchange</h5>
+                        <p class="card-text">Trade your skills for new ones. Teach what you know, learn what you need.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <i class="fas fa-star fa-3x text-warning mb-3"></i>
+                        <h5 class="card-title">Grow</h5>
+                        <p class="card-text">Expand your skillset and help others grow theirs in our supportive community.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if user.is_authenticated %}
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-clipboard-list me-2"></i>Recent Activity</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted">Your recent skill swaps and requests will appear here.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0"><i class="fas fa-lightbulb me-2"></i>Quick Actions</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-grid gap-2">
+                                <a href="{% url 'profile' %}" class="btn btn-outline-primary">
+                                    <i class="fas fa-plus me-2"></i>Add a Skill
+                                </a>
+                                <a href="{% url 'browse' %}" class="btn btn-outline-success">
+                                    <i class="fas fa-search me-2"></i>Find Someone
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

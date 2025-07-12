@@ -1,0 +1,60 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Browse Users - Skill Swap Platform{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-users me-2"></i>Find Skills & Connect
+                </h4>
+            </div>
+            <div class="card-body">
+                {% if users %}
+                    <div class="row">
+                        {% for user_obj in users %}
+                            <div class="col-lg-4 col-md-6 mb-4">
+                                <div class="card user-card h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                                <i class="fas fa-user fa-lg"></i>
+                                            </div>
+                                            <div class="ms-3">
+                                                <h6 class="mb-0">{{ user_obj.username }}</h6>
+                                                <small class="text-muted">Member</small>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-3">
+                                            <h6 class="text-muted mb-2">Available Skills:</h6>
+                                            <div class="d-flex flex-wrap">
+                                                <span class="skill-badge">Programming</span>
+                                                <span class="skill-badge">Design</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="d-grid">
+                                            <a href="#" class="btn btn-outline-primary">
+                                                <i class="fas fa-handshake me-2"></i>Request Swap
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-center py-5">
+                        <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No other users found</h5>
+                        <p class="text-muted">Be the first to invite friends to join the platform!</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
